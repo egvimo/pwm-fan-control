@@ -1,9 +1,9 @@
-# Template
+# PWM fan control
 
-Template repository.
+PWM fan control for Raspberry Pi inside Docker.
 
 ## License
 
-Copyright © 2022 egvimo.
+Copyright © 2023 egvimo.
 
 Licensed under the MIT License. See [LICENSE](LICENSE).
