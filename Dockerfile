@@ -1,12 +1,12 @@
 FROM python:3.12-alpine
 
-RUN apk --no-cache add gcc libc-dev
+RUN apk --no-cache add gcc libc-dev && \
+    pip install pipenv
 
 WORKDIR /app
 
-COPY requirements.txt fan_control.py ./
+COPY Pipfile Pipfile.lock fan_control.py ./
 
-RUN pip install --no-cache-dir --upgrade -r requirements.txt \
-    && rm requirements.txt
+RUN pipenv install --deploy --ignore-pipfile
 
-CMD ["python3", "fan_control.py"]
+CMD ["pipenv", "run", "python", "fan_control.py"]
