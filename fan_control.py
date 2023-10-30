@@ -14,14 +14,14 @@ def _read_temperature() -> float:
 
 
 def _adjust_speed(adjustment: int):
-    currentSpeed: float = _FAN.value * 100
-    targetSpeed = min(max(currentSpeed + adjustment, 0), 100)
-    logging.info(f"Adjusting speed from {currentSpeed} to {targetSpeed}")
-    _FAN.value = targetSpeed / 100
+    current_speed: float = _FAN.value * 100
+    target_speed = min(max(current_speed + adjustment, 0), 100)
+    logging.info("Adjusting speed from %.1f to %.1f", current_speed, target_speed)
+    _FAN.value = target_speed / 100
 
 
 def start() -> None:
-    logging.info(f"Starting fan controller with initial speed of 50.0")
+    logging.info("Starting fan controller with initial speed of 50.0")
 
     _FAN.on()
     _FAN.value = 0.5
@@ -29,9 +29,9 @@ def start() -> None:
     while True:
         temperature = _read_temperature()
         if abs(45 - temperature) > 3:
-            logging.info(f"Temperature deviates: {temperature}")
-            speedAdjustment = 1 if temperature > 45 else -1
-            _adjust_speed(speedAdjustment)
+            logging.info("Temperature deviates: %.1f", temperature)
+            speed_adjustment = 1 if temperature > 45 else -1
+            _adjust_speed(speed_adjustment)
 
         time.sleep(5)
 
