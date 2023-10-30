@@ -24,13 +24,13 @@ jobs:
 
       - name: Prepare
         run: |
-          pip install pylint
+          pip install pipenv
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pipenv install --dev
 
       - name: Lint
-        run: pylint fan_control.py
+        run: pipenv run pylint fan_control.py
 
   build:
     name: Build
