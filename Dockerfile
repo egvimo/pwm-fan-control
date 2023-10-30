@@ -1,12 +1,21 @@
-FROM python:3.12-alpine
+FROM python:3.12-alpine as build
+
+ENV PIPENV_VENV_IN_PROJECT=1
 
 RUN apk --no-cache add gcc libc-dev && \
     pip install pipenv
 
+WORKDIR /build
+
+COPY Pipfile Pipfile.lock ./
+
+RUN pipenv sync
+
+FROM build
+
 WORKDIR /app
 
-COPY Pipfile Pipfile.lock fan_control.py ./
+COPY --from=build /build/.venv/ ./.venv/
+COPY fan_control.py ./
 
-RUN pipenv install --deploy --ignore-pipfile
-
-CMD ["pipenv", "run", "python", "fan_control.py"]
+CMD ["/app/.venv/bin/python", "fan_control.py"]
