@@ -30,10 +30,10 @@ def start() -> None:
         temperature = _read_temperature()
         if abs(45 - temperature) > 3:
             logging.info("Temperature deviates: %.1f", temperature)
-            speed_adjustment = 1 if temperature > 45 else -1
+            speed_adjustment = 5 if temperature > 45 else -5
             _adjust_speed(speed_adjustment)
 
-        time.sleep(5)
+        time.sleep(30)
 
 
 if __name__ == "__main__":
