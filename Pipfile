@@ -8,4 +8,4 @@ gpiozero = "==2.0"
 "RPi.GPIO" = "==0.7.1"
 
 [dev-packages]
-pylint = "==3.0.2"
+pylint = "==3.0.3"
