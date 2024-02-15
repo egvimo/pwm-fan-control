@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-gpiozero = "==2.0"
+gpiozero = "==2.0.1"
 "RPi.GPIO" = "==0.7.1"
 
 [dev-packages]
