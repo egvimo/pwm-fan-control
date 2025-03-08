@@ -26,12 +26,28 @@ def start() -> None:
     _FAN.on()
     _FAN.value = 0.5
 
+    last_log_time = time.time()
+
+    def log_current_state(interval=600):
+        nonlocal last_log_time
+        if time.time() - last_log_time >= interval:
+            current_speed: float = _FAN.value * 100
+            temperature = _read_temperature()
+            logging.info(
+                "Current temperature: %.1f; current speed: %.1f",
+                temperature,
+                current_speed,
+            )
+            last_log_time = time.time()
+
     while True:
         temperature = _read_temperature()
         if abs(45 - temperature) > 3:
             logging.info("Temperature deviates: %.1f", temperature)
             speed_adjustment = 5 if temperature > 45 else -5
             _adjust_speed(speed_adjustment)
+
+        log_current_state()
 
         time.sleep(30)
 
