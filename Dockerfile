@@ -14,6 +14,6 @@ FROM build
 WORKDIR /app
 
 COPY --from=build /build/.venv/ ./.venv/
-COPY fan_control.py ./
+COPY main.py ./
 
-CMD ["/app/.venv/bin/python", "fan_control.py"]
+CMD ["/app/.venv/bin/python", "main.py"]
