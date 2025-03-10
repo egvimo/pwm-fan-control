@@ -1,15 +1,13 @@
 FROM python:3.13-alpine AS build
 
-ENV PIPENV_VENV_IN_PROJECT=1
-
 RUN apk --no-cache add gcc libc-dev && \
-    pip install pipenv
+    pip install uv
 
 WORKDIR /build
 
-COPY Pipfile Pipfile.lock ./
+COPY pyproject.toml uv.lock ./
 
-RUN pipenv sync
+RUN uv sync --no-dev --frozen
 
 FROM build
 

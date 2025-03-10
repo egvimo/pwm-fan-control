@@ -1,0 +1,19 @@
+[project]
+name = "pwm-fan-control"
+description = "PWM fan control for Raspberry Pi inside Docker"
+readme = "README.md"
+license = { text = "MIT" }
+dynamic = ["version"]
+requires-python = ">=3.13"
+dependencies = [
+    "gpiozero==2.0.1",
+    "rpi-gpio==0.7.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.10",
+]
+
+[tool.ruff.lint]
+extend-select = ["E", "W", "I", "B", "Q"]
