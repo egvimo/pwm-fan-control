@@ -1,6 +1,7 @@
 import logging
 import time
-from gpiozero import PWMOutputDevice, CPUTemperature
+
+from gpiozero import CPUTemperature, PWMOutputDevice
 from gpiozero.pins.rpigpio import RPiGPIOFactory
 
 _FACTORY = RPiGPIOFactory()
