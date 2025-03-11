@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 
 from gpiozero import CPUTemperature, PWMOutputDevice
@@ -6,22 +7,24 @@ from gpiozero.pins.rpigpio import RPiGPIOFactory
 from schedule import every, repeat, run_pending
 
 # Constants
-TEMPERATURE_TARGET = 45.0
+TEMPERATURE_TARGET = float(os.getenv("TEMPERATURE_TARGET", 45.0))
 TEMPERATURE_TOLERANCE = 3.0
 SPEED_ADJUSTMENT = 5.0
-INITIAL_FAN_SPEED = 50.0  # Percentage
+INITIAL_FAN_SPEED = 50.0
 
 # GPIO setup
 _FACTORY = RPiGPIOFactory()
 _FAN = PWMOutputDevice(18, pin_factory=_FACTORY)
 
 # Logging setup
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 def _read_temperature() -> float:
     """Read CPU temperature in Celsius."""
-    return CPUTemperature().value * 100
+    return CPUTemperature().temperature
 
 
 def _adjust_speed(adjustment: float):
@@ -64,12 +67,17 @@ def start():
     logging.info(
         "Starting fan controller with initial speed of %.1f%%", INITIAL_FAN_SPEED
     )
-    _FAN.on()
-    _FAN.value = INITIAL_FAN_SPEED / 100
 
-    while True:
-        run_pending()
-        time.sleep(5)
+    try:
+        _FAN.on()
+        _FAN.value = INITIAL_FAN_SPEED / 100
+
+        while True:
+            run_pending()
+            time.sleep(5)
+    except Exception:
+        logging.exception("Fan controller encountered an error")
+        _FAN.off()
 
 
 if __name__ == "__main__":
