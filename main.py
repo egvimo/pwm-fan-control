@@ -76,8 +76,8 @@ def start():
             run_pending()
             time.sleep(5)
     except Exception:
-        logging.exception("Fan controller encountered an error")
         _FAN.off()
+        raise
 
 
 if __name__ == "__main__":

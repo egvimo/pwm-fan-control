@@ -1,4 +1,4 @@
-name: Lint & Build
+name: Test & Build
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    name: Lint
+  test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +27,9 @@ jobs:
 
       - name: Lint
         run: uv run ruff check
+
+      - name: Test
+        run: uv run pytest
 
   build:
     name: Build

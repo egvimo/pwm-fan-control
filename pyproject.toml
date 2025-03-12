@@ -13,8 +13,13 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "pytest==8.3.5",
+    "pytest-mock==3.14.0",
     "ruff==0.9.10",
 ]
+
+[tool.setuptools]
+py-modules = ["main"]
 
 [tool.ruff.lint]
 extend-select = ["E", "W", "I", "B", "Q"]
