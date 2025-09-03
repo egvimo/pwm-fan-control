@@ -1,5 +1,5 @@
 {
   "name": "Python 3",
-  "image": "mcr.microsoft.com/devcontainers/python:1-3.13",
+  "image": "mcr.microsoft.com/devcontainers/python:2-3.13",
   "postCreateCommand": "pipx install uv"
 }
