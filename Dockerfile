@@ -1,4 +1,4 @@
-FROM python:3.13-alpine AS build
+FROM python:3.15-alpine AS build
 
 RUN apk --no-cache add gcc libc-dev && \
     pip install uv
